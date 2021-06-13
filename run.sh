@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo python3 fed_main.py
+cd /home/ec2-user/fed_discord
