@@ -4,6 +4,10 @@ files:
   - source: .
     destination: /home/ec2-user/fed_discord/
 hooks:
+  AfterInstall:
+   - location: install_dependencies.sh
+     timeout: 300
+     runas: root
   ApplicationStart:
    - location: run.sh
      timeout: 300
