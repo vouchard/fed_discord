@@ -53,7 +53,7 @@ jobs:
         run: |
           aws deploy create-deployment \
             --application-name fed_discord \
-            --deployment-group-name AppDeploymentGroupName \
+            --deployment-group-name fed_discord_dep \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
   
