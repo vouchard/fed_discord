@@ -5,9 +5,13 @@ import datetime
 import os
 import platform
 from discord.ext import commands
+import sys
 
 if platform.system() == 'Windows':
     discord_token = os.environ['DISCORD_KEY']
+else:
+    discord_token = sys.argv[1]
+        
     
 client = commands.Bot(command_prefix = 'fd.')
 client.remove_command('help')
@@ -42,5 +46,5 @@ async def removeResponse(ctx,rid):
 
 
 print('waiting for client.run. . . ')
-#client.run(discord_token)
+client.run(discord_token)
 
