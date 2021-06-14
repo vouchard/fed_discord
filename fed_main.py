@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import discord #discord.py
 from fed_module import *
 import datetime
