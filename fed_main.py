@@ -3,8 +3,12 @@ import discord #discord.py
 from fed_module import *
 import datetime
 import os
+import platform
 from discord.ext import commands
-#discord_token = os.environ['DISCORD_KEY']
+
+if platform.system() == 'Windows':
+    discord_token = os.environ['DISCORD_KEY']
+    
 client = commands.Bot(command_prefix = 'fd.')
 client.remove_command('help')
 
