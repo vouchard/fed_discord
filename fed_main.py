@@ -41,5 +41,5 @@ async def removeResponse(ctx,rid):
 
 
 print('waiting for client.run. . . ')
-client.run(discord_token)
+#client.run(discord_token)
 
