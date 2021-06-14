@@ -6,8 +6,3 @@ import os
 from discord.ext import commands
 discord_token = os.environ['DISCORD_KEY']
 
-client = commands.Bot(command_prefix = 'fd.')
-client.remove_command('help')
-
-database = dynamo_comms()
-rp = dynamo_comms()
