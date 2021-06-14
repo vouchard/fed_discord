@@ -7,7 +7,7 @@ import os
 from discord.ext import commands
 ###DISCORD
 discord_token = os.environ['DISCORD_KEY']
-####REDDIT
+
 client = commands.Bot(command_prefix = 'fd.')
 client.remove_command('help')
 
@@ -41,5 +41,5 @@ async def removeResponse(ctx,rid):
 
 
 print('waiting for client.run. . . ')
-client.run(discord_token)
+#client.run(discord_token)
 
