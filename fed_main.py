@@ -10,7 +10,7 @@ import sys
 if platform.system() == 'Windows':
     discord_token = os.environ['DISCORD_KEY']
 else:
-    f = open('/home/ec2-user/credentials/AWS_ACCESS_KEY_ID.env','r')
+    f = open('/home/ec2-user/credentials/DISCORD_KEY.env','r')
     discord_token = (f.read())
     f.close()
         
