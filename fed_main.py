@@ -64,7 +64,7 @@ async def on_message(message):
         member = members[random.randint(0, max_members - 1)]
         while member.bot:
             member = members[random.randint(0, max_members - 1)]
-        msg = f"si {member.mention}"
+        msg = f"si {member.name}"
         await message.reply(msg)
     
     if 'ay ma' in message.content:
