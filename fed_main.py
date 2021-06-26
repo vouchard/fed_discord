@@ -6,6 +6,9 @@ import os
 import platform
 from discord.ext import commands
 import sys
+import random
+
+intents = discord.Intents().all()
 
 if platform.system() == 'Windows':
     discord_token = os.environ['DISCORD_KEY']
@@ -15,7 +18,7 @@ else:
     f.close()
         
     
-client = commands.Bot(command_prefix = 'fd.')
+client = commands.Bot(command_prefix = 'fd.',intents = intents)
 client.remove_command('help')
 
 database = dynamo_comms()
@@ -54,8 +57,16 @@ async def on_message(message):
         channel = client.get_channel(802779161852772373)
         await channel.send(message.content)
 
+    if 'fed sino' in message.content:
+        members = message.channel.members
+        max_members = len(members)
+        #print(guild_members)
+        member = members[random.randint(0, max_members - 1)]
+        while member.bot:
+            member = members[random.randint(0, max_members - 1)]
+        msg = f"si {member.mention}"
 
-    
+        await message.reply(msg)
     await client.process_commands(message)
 
 print('waiting for client.run. . . ')

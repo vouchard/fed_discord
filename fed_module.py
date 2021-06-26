@@ -29,6 +29,7 @@ class dynamo_comms:
             }
         )
         return item_to_add
+        
     def read_data_on_database(self,server_id,statement):
         table = self.dynamodb.Table(self.response_table)
         response = table.query(

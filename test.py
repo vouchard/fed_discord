@@ -15,4 +15,5 @@ s3 = boto3.resource('s3',
          aws_secret_access_key= aws_secret_access_key)
 
 rp = dynamo_comms()
-print(rp.add_response_on_word('1234', 'test', 'test_responsse2', 'vou'))
+#print(rp.add_response_on_word('1234', 'test', 'test_responsse2', 'vou'))
+print(rp.read_data_on_database('1234', 'test'))
