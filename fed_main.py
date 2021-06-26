@@ -65,8 +65,14 @@ async def on_message(message):
         while member.bot:
             member = members[random.randint(0, max_members - 1)]
         msg = f"si {member.mention}"
-
         await message.reply(msg)
+    
+    if 'ay ma' in message.content:
+        fl = open('ma_db.tmp','r')
+        wrds = [w for w in fl]
+        tosend = wrds[random.randint(0, len(wrds) - 1)]
+        fl.close()
+        await message.reply(tosend)
     await client.process_commands(message)
 
 print('waiting for client.run. . . ')
