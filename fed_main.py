@@ -45,7 +45,18 @@ async def removeResponse(ctx,rid):
 
 
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    #print(message.guild)
+    if message.guild == None:
+        channel = client.get_channel(802779161852772373)
+        await channel.send(message.content)
 
+
+    
+    await client.process_commands(message)
 
 print('waiting for client.run. . . ')
 client.run(discord_token)
