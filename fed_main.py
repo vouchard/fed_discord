@@ -46,6 +46,9 @@ async def removeResponse(ctx,rid):
     rp.removeResponse(rid)
     await ctx.send('Response removed')
 
+@client.command(ctx)
+
+
 
 
 @client.event
@@ -77,7 +80,13 @@ async def on_message(message):
         tosend = wrds[random.randint(0, len(wrds) - 1)]
         fl.close()
         await message.reply(tosend)
+    if 'sino si Este' in message.content:
+        await message.reply('ang magandang dilag ng solar')
+
     await client.process_commands(message)
+
+
+
 
 print('waiting for client.run. . . ')
 client.run(discord_token)
