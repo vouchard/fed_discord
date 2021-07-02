@@ -21,6 +21,7 @@ else:
 client = commands.Bot(command_prefix = 'fd.',intents = intents)
 client.remove_command('help')
 
+
 database = dynamo_comms()
 rp = dynamo_comms()
 @client.event
@@ -79,7 +80,7 @@ async def on_message(message):
 
     if 'sino si Este' in message.content:
         await message.reply('ang magandang dilag ng solar')
-
+    await client.change_presence(activity=discord.Game(name="fire"))
     await client.process_commands(message)
 
 
