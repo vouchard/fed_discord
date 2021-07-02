@@ -8,6 +8,8 @@ from discord.ext import commands
 import sys
 import random
 
+
+
 intents = discord.Intents().all()
 
 if platform.system() == 'Windows':
@@ -80,7 +82,13 @@ async def on_message(message):
 
     if 'sino si Este' in message.content:
         await message.reply('ang magandang dilag ng solar')
-    await client.change_presence(activity=discord.Game(name="fire"))
+
+    future = datetime.datetime(2022,6,30,12,0,0)
+    today = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
+    my_time = future - today
+    my_time = my_time.days
+    time_message = f"| {my_time} days na lang at papalitan na si duterte"
+    await client.change_presence(activity=discord.Game(name=time_message))
     await client.process_commands(message)
 
 
