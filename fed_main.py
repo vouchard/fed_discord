@@ -78,6 +78,10 @@ async def on_message(message):
         wrds = [w for w in fl]
         tosend = wrds[random.randint(0, len(wrds) - 1)]
         fl.close()
+
+        if 'si voo ay ma' in message.content:
+            tosend = 'si voo? my daddy?'
+
         await message.reply(tosend)
 
     if 'sino si Este' in message.content:
