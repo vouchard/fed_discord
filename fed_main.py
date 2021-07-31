@@ -26,11 +26,11 @@ else:
     f.close()
 
     f = open('/home/ec2-user/credentials/REDDIT_CLIENT_SECRET.env','r')
-    reddit_client_secret = (f.read())
+    reddit_client_secret = str(f.read())
     f.close()
 
     f = open('/home/ec2-user/credentials/REDDIT_CLIENT_ID.env','r')
-    reddit_client_id = (f.read())
+    reddit_client_id = str(f.read())
     f.close()
 
 
