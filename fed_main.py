@@ -50,6 +50,9 @@ sched = scheduled_task(reddit_client_id,reddit_client_secret)
 @client.event
 async def on_ready():
     print ("bot is ready")
+    print(f"Discord Key {discord_token}")
+    print(f"Reddit_Client_ID {reddit_client_id}")
+    print(f"Reddit_Client_secret {reddit_client_secret}")    
     myLoop.start()
 
 @tasks.loop(seconds = 3605) # repeat after every 10 seconds
