@@ -53,7 +53,7 @@ async def on_ready():
     print(f"Discord Key {discord_token}")
     print(f"Reddit_Client_ID {reddit_client_id}")
     print(f"Reddit_Client_secret {reddit_client_secret}")    
-    myLoop.start()
+    await myLoop.start()
 
 @tasks.loop(seconds = 3605) # repeat after every 10 seconds
 async def myLoop():
