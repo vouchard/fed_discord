@@ -47,7 +47,7 @@ class class_reddit:
         
 class scheduled_task:
     def __init__(self,reddit_client_id,reddit_client_secret):
-        self.current_hour = (datetime.datetime.now()).hour
+        self.current_hour = today = (datetime.datetime.utcnow() + datetime.timedelta(hours=8)).hour
         self.reddit_client_id = reddit_client_id
         self.reddit_client_secret = reddit_client_secret
     async def get_url(self):
