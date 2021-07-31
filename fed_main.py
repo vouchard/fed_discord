@@ -59,10 +59,11 @@ async def myLoop():
     url = ''
     #try:
     url = await sched.get_url()
-    embed=discord.Embed(title=url[1])
-    embed.set_image(url=url[0])
+    if url != None:
+        embed=discord.Embed(title=url[1])
+        embed.set_image(url=url[0])
         #await ctx.send(embed=embed)
-    await channel.send(embed=embed)
+        await channel.send(embed=embed)
     #except:
         #print('Unable to connect to reddit')
 

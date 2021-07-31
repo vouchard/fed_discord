@@ -55,29 +55,31 @@ class scheduled_task:
         if int(self.current_hour) == 15:
             url = await reddit.get_top_today('food')
 
-        if int(self.current_hour) == 16:
+        elif int(self.current_hour) == 16:
             url = await reddit.get_top_today('aww')
         
-        if int(self.current_hour) == 17:
+        elif int(self.current_hour) == 17:
             url = await reddit.get_top_today('Showerthoughts')
             
-        if int(self.current_hour) == 18:
+        elif int(self.current_hour) == 18:
             url = await reddit.get_top_today('holdmybeer')
             
-        if int(self.current_hour) == 19:
+        elif int(self.current_hour) == 19:
             url = await reddit.get_top_today('wholesomememes')
             
-        if int(self.current_hour) == 20:
+        elif int(self.current_hour) == 20:
             url = await reddit.get_top_today('dankmemes')
             
-        if int(self.current_hour) == 21:
+        elif int(self.current_hour) == 21:
             url = await reddit.get_top_today('memes')
             
-        if int(self.current_hour) == 22:
+        elif int(self.current_hour) == 22:
             url = await reddit.get_top_today('nonononoyes')
             
-        if int(self.current_hour) == 14:
+        elif int(self.current_hour) == 14:
             url = await reddit.get_top_today('PerfectTiming')
+        else:
+            url = None
         await reddit.reddit.close()
         return url   
 
