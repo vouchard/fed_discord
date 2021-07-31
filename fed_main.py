@@ -5,8 +5,12 @@ import datetime
 import os
 import platform
 from discord.ext import commands
+from discord.ext import tasks #doing task in evey x hour/sec/min
+import io #needed in dicord for uploading imgs
+import aiohttp #needed in dicord for uploading imgs
 import sys
 import random
+from urllib.parse import urlparse #pars URL
 
 
 
@@ -14,40 +18,53 @@ intents = discord.Intents().all()
 
 if platform.system() == 'Windows':
     discord_token = os.environ['DISCORD_KEY']
+    reddit_client_secret = os.environ['REDDIT_CLIENT_SECRET']
+    reddit_client_id = os.environ['REDDIT_CLIENT_ID']
 else:
     f = open('/home/ec2-user/credentials/DISCORD_KEY.env','r')
     discord_token = (f.read())
     f.close()
+
+    f = open('/home/ec2-user/credentials/REDDIT_CLIENT_SECRET.env','r')
+    reddit_client_secret = (f.read())
+    f.close()
+
+    f = open('/home/ec2-user/credentials/REDDIT_CLIENT_ID.env','r')
+    reddit_client_id = (f.read())
+    f.close()
+
+
+
+
         
-    
+
 client = commands.Bot(command_prefix = 'fd.',intents = intents)
 client.remove_command('help')
 
 
-database = dynamo_comms()
-rp = dynamo_comms()
+
+#reddit = class_reddit(reddit_client_id,reddit_client_secret)
+sched = scheduled_task(reddit_client_id,reddit_client_secret)
+# database = dynamo_comms()
+# rp = dynamo_comms()
 @client.event
 async def on_ready():
     print ("bot is ready")
+    myLoop.start()
 
-#--------------------RESPONSES-----------------------------------
-@client.command()
-async def addResponse(ctx,qfiltered_word,response):
-    server = str(ctx.message.guild.id)
-    filtered_word = qfiltered_word.upper()
-    author = ctx.message.author.name
-    rp.add_response_on_word(server, qfiltered_word, response, author)
-    await ctx.send('Response added')
-
-@client.command()
-async def viewResponse(ctx,qword):
-    server = ctx.message.guild.id
-    await ctx.send(rp.viewResponse(qword,server))
-
-@client.command()
-async def removeResponse(ctx,rid):
-    rp.removeResponse(rid)
-    await ctx.send('Response removed')
+@tasks.loop(seconds = 3605) # repeat after every 10 seconds
+async def myLoop():
+    channel = client.get_channel(803989637558304781)
+    current_hour = (datetime.datetime.now()).hour
+    url = ''
+    #try:
+    url = await sched.get_url()
+    embed=discord.Embed(title=url[1])
+    embed.set_image(url=url[0])
+        #await ctx.send(embed=embed)
+    await channel.send(embed=embed)
+    #except:
+        #print('Unable to connect to reddit')
 
 
 @client.event

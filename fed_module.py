@@ -2,75 +2,83 @@ import boto3
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import datetime
-
-
-class dynamo_comms:
+import asyncpraw
+import asyncio
+class dynamo:
     def __init__(self):
         self.dynamodb = boto3.resource('dynamodb',region_name='ap-southeast-1' )
-        self.response_table = 'Auto_response'    
-        self.question_table = 'random_questions'    
     
-    def add_data_to_response(self,server_id,statement,answers,added_by):
-        add_on = datetime.datetime.now()
-        added_on = add_on.strftime("%m/%d/%Y, %H:%M:%S")
-        table = self.dynamodb.Table(self.response_table)
-        statement = statement.upper()
-        item_to_add = table.put_item(
-            Item={
-                'Server_ID' : server_id,
-                'Word': statement,
-                'Info':[{                   
-                    'Response':answers,
-                    'Added_on':added_on,
-                    'Added_by':added_by
-                }]
-
-
-            }
+    def add_data(self,table_name,content):
+        table = self.dynamodb.Table(table_name)
+        item = content
+        response = table.put_item(
+            Item = item
         )
-        return item_to_add
-        
-    def read_data_on_database(self,server_id,statement):
-        table = self.dynamodb.Table(self.response_table)
+        return response['ResponseMetadata']['HTTPStatusCode']
+
+
+    def read_data(self,table_name,partition_key):
+        table = self.dynamodb.Table(table_name)
         response = table.query(
-                KeyConditionExpression=Key('Server_ID').eq(server_id) & Key('Word').eq(statement)
+                KeyConditionExpression=Key('id').eq(partition_key)
             )
-        return response['Items']
+        return response['Items'][0]['id']
+class class_reddit:
+    def __init__(self,client_id,client_secret):
+        self.reddit = asyncpraw.Reddit(
+        client_id=client_id,
+        client_secret=client_secret,
+        user_agent="testscript by vou",
+        username="weAreNextInLine",
+    )
+    async def get_top_today(self,subreddit):
+        sub =  await self.reddit.subreddit(subreddit)
+        submissions = sub.top(time_filter = 'day',limit = 1)
         
+        async for submission in submissions:
+#            return submission.url
+            ret = []
+            ret = [*ret,(submission.url)]
+            ret = [*ret,(submission.title)]
+           #print(submission.url)
+            #print(submission.title)
+            #print(ret)
+        return ret
+        
+class scheduled_task:
+    def __init__(self,reddit_client_id,reddit_client_secret):
+        self.current_hour = (datetime.datetime.now()).hour
+        self.reddit_client_id = reddit_client_id
+        self.reddit_client_secret = reddit_client_secret
+    async def get_url(self):
+        reddit = class_reddit(self.reddit_client_id,self.reddit_client_secret)
+        if int(self.current_hour) == 15:
+            url = await reddit.get_top_today('food')
+
+        if int(self.current_hour) == 16:
+            url = await reddit.get_top_today('aww')
+        
+        if int(self.current_hour) == 17:
+            url = await reddit.get_top_today('Showerthoughts')
+            
+        if int(self.current_hour) == 18:
+            url = await reddit.get_top_today('holdmybeer')
+            
+        if int(self.current_hour) == 19:
+            url = await reddit.get_top_today('wholesomememes')
+            
+        if int(self.current_hour) == 20:
+            url = await reddit.get_top_today('dankmemes')
+            
+        if int(self.current_hour) == 21:
+            url = await reddit.get_top_today('memes')
+            
+        if int(self.current_hour) == 22:
+            url = await reddit.get_top_today('nonononoyes')
+            
+        if int(self.current_hour) == 14:
+            url = await reddit.get_top_today('PerfectTiming')
+        await reddit.reddit.close()
+        return url   
 
     
-    def add_response_on_word(self,server_id,statement,answers,added_by):
-        table = self.dynamodb.Table(self.response_table)
-        add_on = datetime.datetime.now()
-        added_on = add_on.strftime("%m/%d/%Y, %H:%M:%S")
-        statement = statement.upper()
-        response = table.query(
-                KeyConditionExpression=
-                Key('Server_ID').eq(server_id) & Key('Word').eq(statement)
-            )
-        if response['Items'] == []:
-            self.add_data_to_response(server_id, statement, answers, added_by)
-            print('response added successfully')
-        else:
-            data = self.read_data_on_database(server_id, statement)
-            to_add = {'Response':answers,'Added_on':added_on,'Added_by':added_by}
-            current_info = ((data[0])['Info'])
-            current_answers = [x['Response'] for x in current_info]
-            current_info.append(to_add)
-            if answers not in current_answers:
-                response = table.update_item(
-                Key={
-                    'Server_ID': server_id,
-                    'Word': statement
-                },
-                UpdateExpression="set Info=:newinfo",
-                ExpressionAttributeValues={
-                    ':newinfo': current_info
-                })
-                print('Appended successfully')
-                print(current_answers)
-            else:
-                print('Answer to respose Already Exist')
-                print(current_answers)
-    
-
