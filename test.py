@@ -1,6 +1,7 @@
 from fed_module import *
 import datetime
 import os
+import platform
 import boto3
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
@@ -26,6 +27,37 @@ _ProactorBasePipeTransport.__del__ = silence_event_loop_closed(_ProactorBasePipe
 aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
 aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
 
+
+if platform.system() == 'Windows':
+    discord_token = os.environ['DISCORD_KEY']
+    reddit_client_secret = os.environ['REDDIT_CLIENT_SECRET']
+    reddit_client_id = os.environ['REDDIT_CLIENT_ID']
+else:
+    f = open('/home/ec2-user/credentials/DISCORD_KEY.env','r')
+    discord_token = (f.read())
+    f.close()
+
+    f = open('/home/ec2-user/credentials/REDDIT_CLIENT_SECRET.env','r')
+    reddit_client_secret = (f.read()).strip()
+    f.close()
+
+    f = open('/home/ec2-user/credentials/REDDIT_CLIENT_ID.env','r')
+    reddit_client_id = (f.read()).strip()
+    f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 s3 = boto3.resource('s3',
          aws_access_key_id=aws_access_key_id,
          aws_secret_access_key= aws_secret_access_key)
@@ -50,8 +82,8 @@ def test_dynamo_read():
 #submission = reddit.reddit.submission(url=url)
 #print(submission)
 async def get_top_today():
-    reddit = class_reddit()
-    url =  await reddit.get_top_today('gifs')
+    reddit = class_reddit(reddit_client_id,reddit_client_secret)
+    url =  await reddit.get_top_today(subreddit='gifs',ndx=0)
     await reddit.reddit.close()
     return url
 

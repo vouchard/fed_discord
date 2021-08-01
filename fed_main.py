@@ -57,12 +57,12 @@ async def on_ready():
 
 @tasks.loop(seconds = 3605) # repeat after every 10 seconds
 async def myLoop():
-    channel = client.get_channel(803989637558304781)
     current_hour = (datetime.datetime.now()).hour
     url = ''
     #try:
     url = await sched.get_url()
     if url != None:
+        channel = client.get_channel(url[2])
         embed=discord.Embed(title=url[1])
         embed.set_image(url=url[0])
         #await ctx.send(embed=embed)
