@@ -47,36 +47,36 @@ class class_reddit:
         
 class scheduled_task:
     def __init__(self,reddit_client_id,reddit_client_secret):
-        self.current_hour = today = (datetime.datetime.utcnow() + datetime.timedelta(hours=8)).hour
         self.reddit_client_id = reddit_client_id
         self.reddit_client_secret = reddit_client_secret
     async def get_url(self):
+        current_hour = today = (datetime.datetime.utcnow() + datetime.timedelta(hours=8)).hour
         reddit = class_reddit(self.reddit_client_id,self.reddit_client_secret)
-        if int(self.current_hour) == 15:
+        if int(current_hour) == 10:
             url = await reddit.get_top_today('food')
 
-        elif int(self.current_hour) == 1:
+        elif int(current_hour) == 11:
             url = await reddit.get_top_today('aww')
         
-        elif int(self.current_hour) == 2:
+        elif int(current_hour) == 12:
             url = await reddit.get_top_today('Showerthoughts')
             
-        elif int(self.current_hour) == 3:
+        elif int(current_hour) == 13:
             url = await reddit.get_top_today('holdmybeer')
             
-        elif int(self.current_hour) == 4:
+        elif int(current_hour) == 14:
             url = await reddit.get_top_today('wholesomememes')
             
-        elif int(self.current_hour) == 5:
+        elif int(current_hour) == 15:
             url = await reddit.get_top_today('dankmemes')
             
-        elif int(self.current_hour) == 6:
+        elif int(current_hour) == 16:
             url = await reddit.get_top_today('memes')
             
-        elif int(self.current_hour) == 7:
+        elif int(current_hour) == 17:
             url = await reddit.get_top_today('nonononoyes')
             
-        elif int(self.current_hour) == 8:
+        elif int(current_hour) == 18:
             url = await reddit.get_top_today('PerfectTiming')
         else:
             url = None
