@@ -122,7 +122,9 @@ class genshin:
                 fd.help foods \n \
                 fd.help potions \n \
                 fd.help artifacts \n \
-                fd.help enemies'
+                fd.help enemies \n \n \
+                This is ongoing development, additional informations for characters like \n \
+                talents,ascension and other stuffs will be added soon.'
         elif kw == 'charac':
             resp = requests.get('https://api.genshin.dev/characters').json()
             to_send = 'Characters' + '\n'    

@@ -97,5 +97,5 @@ def test_genshin():
     return genshin.get_info()
 
 def test_genshin_help():
-    return genshin.gi_help(kw='weapons')
+    return genshin.gi_help()
 print(test_genshin_help())
