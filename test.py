@@ -96,4 +96,6 @@ genshin = genshin('solar-pearl')
 def test_genshin():
     return genshin.get_info()
 
-print(test_genshin())
+def test_genshin_help():
+    return genshin.gi_help(kw='weapons')
+print(test_genshin_help())

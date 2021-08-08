@@ -76,6 +76,14 @@ async def gi(ctx,kw):
     embed_msg = gi.get_info()
     if embed_msg != None:
         await ctx.send(embed = embed_msg )
+        
+@client.command()
+async def help(ctx,kw=None):
+     gi = genshin(kw)
+     await ctx.send(gi.gi_help(kw=kw))
+        
+
+
 
 @client.event
 async def on_message(message):

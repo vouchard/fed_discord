@@ -107,3 +107,60 @@ class genshin:
                     mats = mats + key + '\n' + 'sources:' + (','.join(req_json[key]['sources']))
                     current_embed.add_field(name='Common Ascension Material', value=mats, inline=False)
         return current_embed
+    
+    def gi_help(self,kw=None):
+        to_send = ''
+        if kw == None:
+            to_send = 'All characters/artifacts/enemies/foods/potions/weapons are searcheable \n \
+                For words with spaces use dash(-) instead \n \
+                exampleA: fd.gi diluc   \n \
+                exampleB: fd.gi tenacity-of-the-millelith \n \
+                exampleC: the-viridescent-hunt \n \n \
+                For list of searcheables use the following commands \n \
+                fd.help charac \n \
+                fd.help weapons \n \
+                fd.help foods \n \
+                fd.help potions \n \
+                fd.help artifacts \n \
+                fd.help enemies'
+        elif kw == 'charac':
+            resp = requests.get('https://api.genshin.dev/characters').json()
+            to_send = 'Characters' + '\n'    
+            to_send = to_send + (','.join(resp)) + '\n'
+        elif kw == 'weapons':
+            resp = requests.get('https://api.genshin.dev/weapons').json()
+            to_send = to_send +  'Weapons' + '\n'
+            to_send = to_send + (','.join(resp)) + '\n'
+
+        elif kw == 'enemies':
+            resp = requests.get('https://api.genshin.dev/enemies').json()
+
+            to_send = to_send +  'Enemies' + '\n'
+            to_send = to_send + (','.join(resp)) + '\n' + '\n'
+        
+        elif kw == 'artifacts':
+            resp = requests.get('https://api.genshin.dev/artifacts').json()
+
+            to_send = to_send +  'Artifacts' + '\n'
+            to_send = to_send + (','.join(resp)) + '\n' + '\n'
+
+        elif kw == 'foods':
+            resp = requests.get('https://api.genshin.dev/consumables/food').json()
+            
+            to_send = to_send +  'Food' + '\n'
+            to_send = to_send + (','.join(list(resp.keys()))) + '\n'+ '\n'
+        elif kw == 'potions':
+            resp = requests.get('https://api.genshin.dev/consumables/potions').json()
+        
+            to_send = to_send +  'Potions' + '\n'
+            to_send = to_send + (','.join(list(resp.keys()))) + '\n'+ '\n'
+        else: to_send = ''
+        return to_send
+
+
+
+
+
+
+
+
