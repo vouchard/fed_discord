@@ -4,6 +4,8 @@ from boto3.dynamodb.conditions import Key
 import datetime
 import asyncpraw
 import asyncio
+import requests
+import discord
 class dynamo:
     def __init__(self):
         self.dynamodb = boto3.resource('dynamodb',region_name='ap-southeast-1' )
@@ -44,8 +46,9 @@ class class_reddit:
             ctr += 1
            #print(submission.url)
             #print(submission.title)
-            #print(ret
-        
+            #print(ret   
+
+
 class scheduled_task:
     def __init__(self,reddit_client_id,reddit_client_secret):
         self.reddit_client_id = reddit_client_id

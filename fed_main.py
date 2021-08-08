@@ -11,7 +11,7 @@ import aiohttp #needed in dicord for uploading imgs
 import sys
 import random
 from urllib.parse import urlparse #pars URL
-
+from genshin_module import *
 
 
 intents = discord.Intents().all()
@@ -53,7 +53,7 @@ async def on_ready():
     print(f"Discord Key {discord_token}")
     print(f"Reddit_Client_ID {reddit_client_id}")
     print(f"Reddit_Client_secret {reddit_client_secret}")    
-    await myLoop.start()
+#    await myLoop.start()
 
 @tasks.loop(seconds = 3605) # repeat after every 10 seconds
 async def myLoop():
@@ -70,6 +70,12 @@ async def myLoop():
     #except:
         #print('Unable to connect to reddit')
 
+@client.command()
+async def gi(ctx,kw):
+    gi = genshin(kw)
+    embed_msg = gi.get_info()
+    if embed_msg != None:
+        await ctx.send(embed = embed_msg )
 
 @client.event
 async def on_message(message):

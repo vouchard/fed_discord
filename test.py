@@ -11,6 +11,8 @@ from aiohttp import ClientSession
 import asyncio
 from asyncio.proactor_events import _ProactorBasePipeTransport
 from functools import wraps
+from genshin_module import *
+
 
 def silence_event_loop_closed(func):
     @wraps(func)
@@ -83,10 +85,15 @@ def test_dynamo_read():
 #print(submission)
 async def get_top_today():
     reddit = class_reddit(reddit_client_id,reddit_client_secret)
-    url =  await reddit.get_top_today(subreddit='gifs',ndx=0)
+    url =  await reddit.get_top_today('Showerthoughts',2)
     await reddit.reddit.close()
     return url
 
 
 
-print(asyncio.run(get_top_today()))
+#print(asyncio.run(get_top_today()))
+genshin = genshin('solar-pearl')
+def test_genshin():
+    return genshin.get_info()
+
+print(test_genshin())
