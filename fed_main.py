@@ -13,6 +13,9 @@ import random
 from urllib.parse import urlparse #pars URL
 from genshin_module import *
 from discord import FFmpegPCMAudio, PCMVolumeTransformer
+import ctypes
+import ctypes.util
+ 
 
 
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options': '-vn'}
@@ -36,7 +39,17 @@ else:
     reddit_client_id = (f.read()).strip()
     f.close()
 
-
+    print("ctypes - Find opus:")
+    a = ctypes.util.find_library('opus')
+    print(a)
+    
+    print("Discord - Load Opus:")
+    b = discord.opus.load_opus(a)
+    print(b)
+    
+    print("Discord - Is loaded:")
+    c = discord.opus.is_loaded()
+    print(c)
 
 
         
