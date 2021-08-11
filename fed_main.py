@@ -38,20 +38,7 @@ else:
     f = open('/home/ec2-user/credentials/REDDIT_CLIENT_ID.env','r')
     reddit_client_id = (f.read()).strip()
     f.close()
-    import ctypes
-    import ctypes.util
-    
-    print("ctypes - Find opus:")
-    a = ctypes.util.find_library('opus')
-    print(a)
-    
-    print("Discord - Load Opus:")
-    b = discord.opus.load_opus(a)
-    print(b)
- 
-    print("Discord - Is loaded:")
-    c = discord.opus.is_loaded()
-    print(c)
+    discord.opus.load_opus('opus')
 
         
 
