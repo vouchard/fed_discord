@@ -38,7 +38,7 @@ else:
     f = open('/home/ec2-user/credentials/REDDIT_CLIENT_ID.env','r')
     reddit_client_id = (f.read()).strip()
     f.close()
-   
+    discord.opus.load_opus('opus')
 
         
 
