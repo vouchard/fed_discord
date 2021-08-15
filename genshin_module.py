@@ -124,8 +124,10 @@ class genshin:
                 fd.help potions \n \
                 fd.help artifacts \n \
                 fd.help enemies \n \n \
-                This is ongoing development, additional informations for characters like \n \
-                talents,ascension and other stuffs will be added soon.'
+                --CHARACTER VOICE LINES \n \n \
+                fd.gichar  list of genshin characters with voicelines(maybe) \n \n \
+                fd.gicommands *characterName* \n \n \
+                fd.givoice *command* \n \n '
         elif kw == 'charac':
             resp = requests.get('https://api.genshin.dev/characters').json()
             to_send = 'Characters' + '\n'    
@@ -188,6 +190,7 @@ class genshin_voicelines:
                     ls.append(data)
                     counter+=1
             return ('\n').join(ls)
+        
 
     def voice_get_url(self,command):
         charac = command.split('-')[0]

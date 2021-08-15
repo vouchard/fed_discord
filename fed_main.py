@@ -88,7 +88,7 @@ async def help(ctx,kw=None):
         
 ####################################
 @client.command()
-async def voice(ctx,cm):
+async def givoice(ctx,cm):
     if ctx.message.author.voice == None:
         await ctx.send("No Voice Channel", "You need to be in a voice channel to use this command!")
         return
@@ -105,6 +105,17 @@ async def voice(ctx,cm):
     source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
     voice_client.play(source)
     
+
+@client.command()
+async def gichar(ctx):
+    ls = gi_vl.char_list()
+    await ctx.send(ls)
+
+@client.command()
+async def gicommands(ctx,cm):
+    ls = gi_vl.voice_list(cm)
+    await ctx.send(ls)
+
 
 @client.event
 async def on_message(message):
