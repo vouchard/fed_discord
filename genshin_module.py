@@ -1,4 +1,5 @@
 import discord
+import json
 import requests
 class genshin:
     def __init__(self,keyword):
@@ -159,7 +160,57 @@ class genshin:
         else: to_send = ''
         return to_send
 
+class genshin_voicelines:
+    def __init__(self):
+        fl = open('genshin_voice_lines.json','r')
+        self.data = json.load(fl)
+        fl.close()
+    def char_list(self):
+        to_r = []
+        for dt in self.data:
+            to_r.append(dt['Character'])
+        return ','.join(to_r)
+    def voice_list(self,character):
+        char = None
+        for dt in self.data:
+            #print(dt['Character'].upper())
+            if (dt['Character']).upper() == character.upper():
+                char = dt
+        if char == None:
+            return 'Invalid Genshin Character'
+        else:
+            vl = char['VoiceLines']
+            counter = 0
+            ls = ['Voice >> Command']
+            for voice in vl:
+                for keys in voice.keys():       
+                    data = keys + ' >> ' + character + '-' + str(counter)
+                    ls.append(data)
+                    counter+=1
+            return ('\n').join(ls)
 
+    def voice_get_url(self,command):
+        charac = command.split('-')[0]
+        command = int(command.split('-')[1])
+        char = None
+        for dt in self.data:
+            #print(dt['Character'].upper())
+            if (dt['Character']).upper() == charac.upper():
+                char = dt
+        if char == None:
+            return 'Invalid Genshin Character'
+        else:
+            vl = char['VoiceLines']
+            counter = 0
+            ls = ['Voice >> Command']
+            url = None
+            for voice in vl:
+                for keys in voice.keys():       
+                    if counter == command:
+                        url = voice[keys]
+                    counter +=1
+            return (url)
+    
 
 
 

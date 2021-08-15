@@ -92,10 +92,13 @@ async def get_top_today():
 
 
 #print(asyncio.run(get_top_today()))
-genshin = genshin('solar-pearl')
+#genshin = genshin('solar-pearl')
 def test_genshin():
     return genshin.get_info()
 
 def test_genshin_help():
     return genshin.gi_help()
-print(test_genshin_help())
+#print(test_genshin_help())
+gi_vl = genshin_voicelines()
+print(gi_vl.voice_get_url("asda"))
+

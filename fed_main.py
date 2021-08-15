@@ -46,7 +46,7 @@ client = commands.Bot(command_prefix = 'fd.',intents = intents)
 client.remove_command('help')
 
 
-
+gi_vl = genshin_voicelines()
 #reddit = class_reddit(reddit_client_id,reddit_client_secret)
 sched = scheduled_task(reddit_client_id,reddit_client_secret)
 # database = dynamo_comms()
@@ -88,9 +88,9 @@ async def help(ctx,kw=None):
         
 ####################################
 @client.command()
-async def play(ctx):
+async def voice(ctx,cm):
     if ctx.message.author.voice == None:
-        await ctx.send(embed=Embeds.txt("No Voice Channel", "You need to be in a voice channel to use this command!", ctx.author))
+        await ctx.send("No Voice Channel", "You need to be in a voice channel to use this command!")
         return
     channel = ctx.message.author.voice.channel
     voice = discord.utils.get(ctx.guild.voice_channels, name=channel.name)
@@ -99,7 +99,9 @@ async def play(ctx):
         voice_client = await voice.connect()
     else:
         await voice_client.move_to(channel)
-    url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
+    #url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
+    url = gi_vl.voice_get_url(cm)
+    #source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, **FFMPEG_OPTIONS) 
     source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
     voice_client.play(source)
     
