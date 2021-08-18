@@ -16,7 +16,7 @@ class genshin:
             print('checking',url_to_check)
             if check == 200:
                 print(url_to_check)
-                embed=discord.Embed(title="Solar System Genshin Helper")
+                embed=discord.Embed(title="'' Genshin Helper")
                 portrait = requests.get(url=url_to_check + '/portrait').status_code
                 icon = requests.get(url=url_to_check + '/icon').status_code
                 img_url = None
@@ -57,7 +57,7 @@ class genshin:
         req = requests.get(url_to_check)
         request_json = req.json()
         if self.keyword in request_json.keys():
-            embed=discord.Embed(title="Solar System Genshin Helper")
+            embed=discord.Embed(title="'' Genshin Helper")
             recipes = ''
             for item in request_json[self.keyword]:
                 if type(request_json[self.keyword][item]).__name__ == 'str':
@@ -74,7 +74,7 @@ class genshin:
         request_json = req.json()
         
         if self.keyword in request_json.keys():
-            embed=discord.Embed(title="Solar System Genshin Helper")
+            embed=discord.Embed(title="'' Genshin Helper")
             recipes = ''
             for item in request_json[self.keyword]:
                 if type(request_json[self.keyword][item]).__name__ == 'str':
