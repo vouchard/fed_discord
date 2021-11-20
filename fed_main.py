@@ -116,7 +116,28 @@ async def gicommands(ctx,cm):
     ls = gi_vl.voice_list(cm)
     await ctx.send(ls)
 
+################################################################################
+#custom Solar Music
+@client.command()
+async def arwin(ctx):
+    if ctx.message.author.voice == None:
+        await ctx.send("No Voice Channel", "You need to be in a voice channel to use this command!")
+        return
+    channel = ctx.message.author.voice.channel
+    voice = discord.utils.get(ctx.guild.voice_channels, name=channel.name)
+    voice_client = discord.utils.get(client.voice_clients, guild=ctx.guild)
+    if voice_client == None:
+        voice_client = await voice.connect()
+    else:
+        await voice_client.move_to(channel)
+    #url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
+    
+    url = r'C:\Users\PC\Downloads\ea8f917f-d0da-ad68-7a4a-7c80b2958430.192.mp3'
+    source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, **FFMPEG_OPTIONS) 
+    #source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
+    voice_client.play(source)
 
+#################################################################################
 @client.event
 async def on_message(message):
     if message.author == client.user:
