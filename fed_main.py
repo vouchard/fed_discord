@@ -101,11 +101,11 @@ async def givoice(ctx,cm):
         await voice_client.move_to(channel)
     #url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
     url = gi_vl.voice_get_url(cm)
+    
     #source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, **FFMPEG_OPTIONS) 
     source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
     voice_client.play(source)
     
-
 @client.command()
 async def gichar(ctx):
     ls = gi_vl.char_list()
@@ -131,10 +131,11 @@ async def arwin(ctx):
     else:
         await voice_client.move_to(channel)
     #url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
-    
-    url = r'C:\Users\PC\Downloads\ea8f917f-d0da-ad68-7a4a-7c80b2958430.192.mp3'
-    source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, **FFMPEG_OPTIONS) 
-    #source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
+
+    #url = '/home/ec2-user/credentials/solar_colab.mp3'
+   # source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, **FFMPEG_OPTIONS) 
+    url = '/home/ec2-user/credentials/solar_colab.mp3'
+    source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
     voice_client.play(source)
 
 #################################################################################
