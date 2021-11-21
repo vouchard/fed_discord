@@ -27,15 +27,15 @@ if platform.system() == 'Windows':
     reddit_client_secret = os.environ['REDDIT_CLIENT_SECRET']
     reddit_client_id = os.environ['REDDIT_CLIENT_ID']
 else:
-    f = open('/home/ec2-user/credentials/DISCORD_KEY.env','r')
+    f = open('/home/ubuntu/credentials/DISCORD_KEY.env','r')
     discord_token = (f.read())
     f.close()
 
-    f = open('/home/ec2-user/credentials/REDDIT_CLIENT_SECRET.env','r')
+    f = open('/home/ubuntu/credentials/REDDIT_CLIENT_SECRET.env','r')
     reddit_client_secret = (f.read()).strip()
     f.close()
 
-    f = open('/home/ec2-user/credentials/REDDIT_CLIENT_ID.env','r')
+    f = open('/home/ubuntu/credentials/REDDIT_CLIENT_ID.env','r')
     reddit_client_id = (f.read()).strip()
     f.close()
     discord.opus.load_opus('libopus.so.0')
@@ -132,10 +132,10 @@ async def arwin(ctx):
         await voice_client.move_to(channel)
     #url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
 
-    url = r'C:\Users\PC\Desktop\solar_colab.opus'
-    source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, options='-vn') 
-    #url = '/home/ec2-user/credentials/output.mp3'
-    #source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
+    #url = r'C:\Users\PC\Desktop\solar_colab.opus'
+    #source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, options='-vn') 
+    url = '/home/ubuntu/credentials/solar_colab.opus'
+    source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
 
     voice_client.play(source)
 
