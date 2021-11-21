@@ -132,10 +132,10 @@ async def arwin(ctx):
         await voice_client.move_to(channel)
     #url = 'https://static.wikia.nocookie.net/gensin-impact/images/7/7b/VO_Zhongli_Hello.ogg/revision/latest?cb=20210113143726'
 
-    #url = r'C:\Users\PC\Desktop\output.mp3'
-    #source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, options='-vn') 
-    url = '/home/ec2-user/credentials/output.mp3'
-    source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
+    url = r'C:\Users\PC\Desktop\solar_colab.opus'
+    source = discord.FFmpegPCMAudio(executable=r'C:\ffmpeg\bin\ffmpeg.exe',source=url, options='-vn') 
+    #url = '/home/ec2-user/credentials/output.mp3'
+    #source = discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS) 
 
     voice_client.play(source)
 
